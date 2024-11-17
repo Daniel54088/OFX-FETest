@@ -22,6 +22,7 @@ const DropDown = (props) => {
         onClick={toggleOpen}
         className={classes.dropdown}
         data-dropdown="true"
+        data-testid={props.testId}
       >
         {props.leftIcon}
         <span className={classes.dropdownText}>{props.selected}</span>
@@ -80,6 +81,7 @@ DropDown.propTypes = {
   leftIcon: PropTypes.object,
   className: PropTypes.string,
   style: PropTypes.object,
+  testId: PropTypes.string,
 };
 
 export default DropDown;

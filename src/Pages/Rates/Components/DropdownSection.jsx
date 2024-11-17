@@ -41,6 +41,7 @@ const DropdownSection = React.memo(
             }))}
             setSelected={(key) => handleCountryChange("from", key)}
             style={{ marginRight: "20px" }}
+            testId="from-dropdown"
           />
         </div>
 
@@ -66,6 +67,7 @@ const DropdownSection = React.memo(
             }))}
             setSelected={(key) => handleCountryChange("to", key)}
             style={{ marginLeft: "20px" }}
+            testId="to-dropdown"
           />
         </div>
       </div>
