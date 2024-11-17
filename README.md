@@ -61,7 +61,7 @@ node version: v20.12.2
 
 1. Git Clone this repo.
 1. Run `yarn or npm install`
-1. Run `yarn dev or npm run dev `
+1. Run `yarn start or npm run start `
 1. Visit `http://localhost:3000`
 
 ![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
