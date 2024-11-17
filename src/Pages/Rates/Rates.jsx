@@ -1,114 +1,113 @@
-import { useState } from 'react';
-import DropDown from '../../Components/DropDown';
-import ProgressBar from '../../Components/ProgressBar';
-import Loader from '../../Components/Loader';
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import classes from "./Rates.module.css";
 
-import { useAnimationFrame } from '../../Hooks/useAnimationFrame';
-import { ReactComponent as Transfer } from '../../Icons/Transfer.svg';
+// Components
+import ProgressBar from "../../Components/ProgressBar";
+import NumberInput from "../../Components/NumberInput/NumberInput";
+import DropdownSection from "./Components/DropdownSection";
+import ResultsSection from "./Components/ResultSection";
 
-import classes from './Rates.module.css';
+// Hooks
+import { useAnimationFrame } from "../../Hooks/useAnimationFrame";
+import useDebounce from "../../Hooks/useDebounce";
+import useExchangeRate from "../../Hooks/useExchangeRate";
 
-import CountryData from '../../Libs/Countries.json';
-import countryToCurrency from '../../Libs/CountryCurrency.json';
-
-let countries = CountryData.CountryCodes;
+// Utils
+import { calculateConversion } from "../../Utils/CalculateConversion";
+import { dropdownSchema } from "./ValidationSchemas";
 
 const Rates = () => {
-    const [fromCurrency, setFromCurrency] = useState('AU');
-    const [toCurrency, setToCurrency] = useState('US');
+  const [fromCountry, setFromCountry] = useState("AU");
+  const [toCountry, setToCountry] = useState("US");
+  const [progression, setProgression] = useState(0);
+  const [amount, setAmount] = useState("");
 
-    const [exchangeRate, setExchangeRate] = useState(0.7456);
-    const [progression, setProgression] = useState(0);
-    const [loading, setLoading] = useState(false);
+  // Debounced amount value
+  const debouncedAmount = useDebounce(amount, 300);
 
-    const Flag = ({ code }) => (
-        <img alt={code || ''} src={`/img/flags/${code || ''}.svg`} width="20px" className={classes.flag} />
-    );
+  // Custom hook for exchange rate
+  const { exchangeRate, isFetching, isError, error, refetch } = useExchangeRate(
+    fromCountry,
+    toCountry
+  );
 
-    const fetchData = async () => {
-        if (!loading) {
-            setLoading(true);
+  // Memoize the conversion calculations
+  const { trueAmount, markedUpAmount } = useMemo(() => {
+    return calculateConversion(debouncedAmount, exchangeRate || 1, 0.05);
+  }, [debouncedAmount, exchangeRate]);
 
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+  useEffect(() => {
+    if (isError) {
+      setProgression(0);
+      setAmount("");
+    }
+  }, [isError]);
 
-            setLoading(false);
-        }
-    };
+  const handleCountryChange = useCallback((type, key) => {
+    const validationResult = dropdownSchema.safeParse(key);
+    if (!validationResult.success) {
+      console.error(validationResult.error.errors[0].message);
+      return;
+    }
 
-    // Demo progress bar moving :)
-    useAnimationFrame(!loading, (deltaTime) => {
-        setProgression((prevState) => {
-            if (prevState > 0.998) {
-                fetchData();
-                return 0;
-            }
-            return (prevState + deltaTime * 0.0001) % 1;
-        });
+    if (type === "from") {
+      setFromCountry(key);
+    } else {
+      setToCountry(key);
+    }
+    setProgression(0); // Reset the progress bar
+  }, []);
+
+  useAnimationFrame(!isError, (deltaTime) => {
+    setProgression((prevState) => {
+      if (prevState > 0.998) {
+        refetch();
+        return 0;
+      }
+      return (prevState + deltaTime * 0.0001) % 1;
     });
+  });
 
-    return (
-        <div className={classes.container}>
-            <div className={classes.content}>
-                <div className={classes.heading}>Currency Conversion</div>
+  return (
+    <div className={classes.container}>
+      <div className={classes.content}>
+        <div className={classes.heading}>Currency Conversion</div>
 
-                <div className={classes.rowWrapper}>
-                    <div>
-                        <DropDown
-                            leftIcon={<Flag code={fromCurrency} />}
-                            label={'From'}
-                            selected={countryToCurrency[fromCurrency]}
-                            options={countries.map(({ code }) => ({
-                                option: countryToCurrency[code],
-                                key: code,
-                                icon: <Flag code={code} />,
-                            }))}
-                            setSelected={(key) => {
-                                setFromCurrency(key);
-                            }}
-                            style={{ marginRight: '20px' }}
-                        />
-                    </div>
+        <DropdownSection
+          fromCountry={fromCountry}
+          toCountry={toCountry}
+          handleCountryChange={handleCountryChange}
+          exchangeRate={exchangeRate}
+          isFetching={isFetching}
+        />
 
-                    <div className={classes.exchangeWrapper}>
-                        <div className={classes.transferIcon}>
-                            <Transfer height={'25px'} />
-                        </div>
+        <ProgressBar
+          progress={progression}
+          animationClass={isFetching ? classes.slow : ""}
+          style={{ marginTop: "20px" }}
+        />
 
-                        <div className={classes.rate}>{exchangeRate}</div>
-                    </div>
+        {isError && (
+          <div className={classes.error}>
+            <strong>Error:</strong> {error?.message || "Something went wrong"}
+          </div>
+        )}
 
-                    <div>
-                        <DropDown
-                            leftIcon={<Flag code={toCurrency} />}
-                            label={'To'}
-                            selected={countryToCurrency[toCurrency]}
-                            options={countries.map(({ code }) => ({
-                                option: countryToCurrency[code],
-                                key: code,
-                                icon: <Flag code={code} />,
-                            }))}
-                            setSelected={(key) => {
-                                setToCurrency(key);
-                            }}
-                            style={{ marginLeft: '20px' }}
-                        />
-                    </div>
-                </div>
+        <NumberInput
+          value={amount}
+          onChange={setAmount}
+          placeholder="Enter amount to convert"
+          label="Amount"
+          isError={isError}
+        />
 
-                <ProgressBar
-                    progress={progression}
-                    animationClass={loading ? classes.slow : ''}
-                    style={{ marginTop: '20px' }}
-                />
-
-                {loading && (
-                    <div className={classes.loaderWrapper}>
-                        <Loader width={'25px'} height={'25px'} />
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+        <ResultsSection
+          trueAmount={trueAmount}
+          markedUpAmount={markedUpAmount}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Rates;

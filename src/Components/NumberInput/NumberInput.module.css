@@ -1,0 +1,25 @@
+.NumberInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 30px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input {
+  padding: 8px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 40%;
+}
+
+.input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+}
