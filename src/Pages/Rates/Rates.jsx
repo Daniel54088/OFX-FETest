@@ -88,7 +88,7 @@ const Rates = () => {
         />
 
         {isError && (
-          <div className={classes.error}>
+          <div className={classes.error} data-testid="error-message">
             <strong>Error:</strong> {error?.message || "Something went wrong"}
           </div>
         )}
@@ -99,6 +99,7 @@ const Rates = () => {
           placeholder="Enter amount to convert"
           label="Amount"
           isError={isError}
+          testId="amount-input"
         />
 
         <ResultsSection

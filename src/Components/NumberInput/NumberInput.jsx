@@ -9,6 +9,7 @@ const NumberInput = ({
   placeholder,
   label,
   isError = false,
+  testId,
 }) => {
   const handleNumberInputChange = (value) => {
     const validationResult = numberInputSchema.safeParse(value);
@@ -28,6 +29,7 @@ const NumberInput = ({
       )}
       <input
         id="number-input"
+        data-testid={testId}
         type="number"
         value={value}
         onChange={(e) => handleNumberInputChange(e.target.value)}
@@ -45,6 +47,7 @@ NumberInput.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   isError: PropTypes.bool,
+  testId: PropTypes.string,
 };
 
 export default NumberInput;
