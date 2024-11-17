@@ -21,8 +21,13 @@ const NumberInput = ({
 
   return (
     <div className={classes.NumberInputContainer}>
-      {label && <label className={classes.label}>{label}</label>}
+      {label && (
+        <label className={classes.label} htmlFor="number-input">
+          {label}
+        </label>
+      )}
       <input
+        id="number-input"
         type="number"
         value={value}
         onChange={(e) => handleNumberInputChange(e.target.value)}

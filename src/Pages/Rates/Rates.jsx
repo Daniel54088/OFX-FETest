@@ -33,7 +33,7 @@ const Rates = () => {
 
   // Memoize the conversion calculations
   const { trueAmount, markedUpAmount } = useMemo(() => {
-    return calculateConversion(debouncedAmount, exchangeRate || 1, 0.05);
+    return calculateConversion(debouncedAmount, exchangeRate || 1, 0.0005);
   }, [debouncedAmount, exchangeRate]);
 
   useEffect(() => {
