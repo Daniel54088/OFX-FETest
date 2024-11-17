@@ -11,8 +11,8 @@ describe("ResultsSection", () => {
     render(<ResultsSection trueAmount={150.0} markedUpAmount={149.25} />);
 
     expect(screen.getByText(/true amount:/i)).toBeInTheDocument();
-    expect(screen.getByText("150.00")).toBeInTheDocument();
+    expect(screen.getByText("$150.00")).toBeInTheDocument();
     expect(screen.getByText(/marked-up amount:/i)).toBeInTheDocument();
-    expect(screen.getByText("149.25")).toBeInTheDocument();
+    expect(screen.getByText("$149.25")).toBeInTheDocument();
   });
 });

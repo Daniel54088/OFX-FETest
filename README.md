@@ -1,38 +1,101 @@
-# OFX Frontend Coding Test
-Before users make payments or conversions in OFX, we provide them with a simple calculator to show them how much they will receive when complete.
+<h1 align="center">Currency Converter</h1>
 
-The code provided to you includes a simple calculator with some of it's implementation missing or incomplete. For this test you'll be extending the provided code to be more complete.
+</br>
 
-The test is designed to take at most 1hr 30mins at most.
-  
-## Question 1
-There are two drop down boxes on the main screen that open when clicked. Modify both dropdowns to close when you click anywhere outside of the dropdown.
-  
-## Question 2
-Create a new text input component and add it to the rates page. The user will be using this input to enter the amount they want to convert.
-  
-## Question 3
-Using the current rate and whatever the user enters into the input box, calculate what the result of the conversion would be, including an OFX markup of 0.05% (Calculation instructions are below). Display both the 'true' amount (i.e. the amount without markup) and the marked up amount on the page.
+<!-- TABLE OF CONTENTS -->
+<h2 id="table-of-contents"> :book: Table of Contents</h2>
 
-### Calculating Markup
-You can think of markup as the difference between the amount the user receives on the conversion and the rate OFX actually trades at.
-  
-Whenever you convert your money, a margin is added by the company doing the conversion for you, but it's usually hidden.
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#introduction"> ➤ Introduction</a></li>
+    <li><a href="#tech-stack"> ➤ Tech stack</a></li>
+    <li><a href="#app-structure"> ➤ Run app</a></li>
+    <li><a href="#test"> ➤ Run test</a></li>
+    <li><a href="#road-map"> ➤ Road Map</a></li>
+  </ol>
+</details>
 
-The markup is typically given as a percentage (in this case 0.5%), and is used to calculate an adjustment to the actual rate. Ultimately it determines the difference between the market rate and the rate you actually get.
+![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-#### Example 1
-If you are selling AUD and buying SGD, the exchange rate may be 1.00. The markup on the FX is 0.5%, which means we want to adjust the rate by  `0.005 * 1.00 = 0.005`, which makes the OFX rate `1.00 - 0.005 = 99.995`.
-  
-#### Example 2
-If you are selling AUD and buying INR, the exchange rate may be 50.00. The mark up on the FX is 0.5%, which means we want to adjust the rate by `0.005 * 50 = 0.25`, which makes the OFX rate `50 - 0.25 = 49.75`.
+<!-- ABOUT THE PROJECT -->
+<h2 id="introduction"> :pencil: Introduction</h2>
 
+<p align="justify">
 
-## Question 4
-The currency markets are constantly moving and changing. OFX provides users with an API to fetch live rates from the market.
-  
-Update your page to fetch the live rate from OFX and display it to the user. Each time the blue bar on the page reaches the end, you should fetch that rate again.
+The Currency Converter is a web-based application that enables users to convert amounts between different currencies with live exchange rates. It provides an intuitive interface where users can select the source and target currencies, input an amount, and view the converted value in real-time. The application integrates live exchange rate data and includes a progress bar to indicate the frequency of rate updates. Additionally, the tool accounts for marked-up rates to display both true and adjusted amounts. Ideal for travelers, businesses, and individuals tracking currency fluctuations, the Currency Converter is designed for accuracy, ease of use, and seamless user experience. Error handling ensures users are notified of any issues with exchange rate retrieval, and inputs are validated for correctness.
 
-The following API docs page describes how to use the endpoint: https://apidocs.paytron.com/reference/get-rates. In the response body you should use the `retailRate` value to display on your page.
-  
-**Note:** You will need to use the following URL instead of the production one: https://rates.staging.api.paytron.com/rate/public
+</p>
+
+<p align="center">
+  <img src="/public/preview.png" alt="app structure" width="70%" height="70%">        
+</p>
+
+![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<!-- Tech stack -->
+<h2 id="tech-stack"> :books: Tech stack</h2>
+
+The following open source techs are used in this project:
+
+- <b>Base</b> <br>
+
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
+- <b>Code Consistency & Reliability</b> <br>
+
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+
+- <b>Testing tool</b> <br>
+  ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white) ![Cypress](https://img.shields.io/badge/-cypress-%23E33332?style=for-the-badge&logo=cypress&logoColor=white) ![jest](https://img.shields.io/badge/-jest-%23E33332?style=for-the-badge&logo=jest&logoColor=white)
+
+![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<!-- App structure -->
+<h2 id="app-structure"> :fork_and_knife: Run app </h2>
+
+node version: v20.12.2
+
+### Steps:
+
+1. Git Clone this repo.
+1. Run `yarn or npm install`
+1. Run `yarn dev or npm run dev `
+1. Visit `http://localhost:3000`
+
+![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="test"> :floppy_disk: Test</h2>
+
+### Unit & integration test (Jest, React Testing Library)
+
+1. `yarn or npm install`
+2. `yarn test or npm run test`
+
+<p align="center">
+  <img src="/public/test-result.png" alt="app structure" width="70%" height="70%">        
+</p>
+
+<!-- ### Cypress e2e test
+
+1. `yarn or npm install`
+2. `yarn cypress:open or npm run cypress:open`
+
+<p align="center">
+  <img src="/public/e2e-test.gif" alt="app structure" width="70%" height="70%">
+</p> -->
+
+![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="road-map"> 🗺️: Road-map</h2>
+
+### Road map
+
+1. Use React Hook Form with Zod Validation:
+
+- Integrate React Hook Form for efficient form handling and validation, paired with Zod for schema-based form validation. This will provide flexibility to handle more complex questions, beyond simple radio buttons, ensuring data validation is robust and easy to maintain.
+
+2. Implement TypeScript:
+
+- Using TypeScript in production ensures a more reliable and maintainable codebase by catching potential bugs during development through its static type-checking. It improves developer productivity with better autocompletion, enhanced refactoring capabilities, and robust IDE support, which speeds up debugging and collaboration. TypeScript also helps maintain consistency in a growing codebase, making it scalable and easier to onboard new team members. Its compatibility with JavaScript ensures a smooth adoption process while leveraging type definitions for third-party libraries in production environments.

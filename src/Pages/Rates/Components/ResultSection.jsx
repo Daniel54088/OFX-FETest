@@ -7,11 +7,11 @@ const ResultsSection = React.memo(({ trueAmount, markedUpAmount }) => {
     <div className={classes.results}>
       <div>
         <strong>True Amount:</strong>{" "}
-        {formatNumberWithCommas(trueAmount.toFixed(2))}
+        {`$${formatNumberWithCommas(trueAmount.toFixed(2))}`}
       </div>
       <div>
         <strong>Marked-Up Amount:</strong>{" "}
-        {formatNumberWithCommas(markedUpAmount.toFixed(2))}
+        {`$${formatNumberWithCommas(markedUpAmount.toFixed(2))}`}
       </div>
     </div>
   );
