@@ -48,7 +48,7 @@ The following open source techs are used in this project:
   ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
 
 - <b>Testing tool</b> <br>
-  ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white) ![Cypress](https://img.shields.io/badge/-cypress-%23E33332?style=for-the-badge&logo=cypress&logoColor=white) ![jest](https://img.shields.io/badge/-jest-%23E33332?style=for-the-badge&logo=jest&logoColor=white)
+  ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white) ![jest](https://img.shields.io/badge/-jest-%23E33332?style=for-the-badge&logo=jest&logoColor=white)
 
 ![---------------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
